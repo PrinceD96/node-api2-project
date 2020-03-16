@@ -9,7 +9,9 @@ router.post("/", (req, res) => {
 
 	if (!post.title || !post.contents) {
 		res.status(400).json({
-			message: "Please provide title and contents for the post."
+			message: `Please provide ${
+				!post.title ? "tittle" : "contents"
+			} for the post.`
 		});
 	} else {
 		Posts.insert(post)
