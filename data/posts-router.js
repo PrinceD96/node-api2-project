@@ -75,7 +75,7 @@ router.get("/:id", (req, res) => {
 
 	Posts.findById(id)
 		.then(post => {
-			console.log("Single Post", post);
+			// console.log("Single Post", post);
 			if (!post.length) {
 				res
 					.status(404)
@@ -89,6 +89,28 @@ router.get("/:id", (req, res) => {
 			res
 				.status(500)
 				.json({ message: "The post information could not be retrieved." });
+		});
+});
+
+// Getting all the comments for a specified post (GET request)
+router.get("/:id/comments", (req, res) => {
+	postId = req.params.id;
+
+	Posts.findPostComments(postId)
+		.then(comments => {
+			if (!comments.length) {
+				res
+					.status(404)
+					.json({ message: "The post with the specified ID does not exist." });
+			} else {
+				res.status(200).json(comments);
+			}
+		})
+		.catch(error => {
+			console.log(error);
+			res
+				.status(500)
+				.json({ message: "The comments information could not be retrieved." });
 		});
 });
 
