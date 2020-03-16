@@ -135,3 +135,39 @@ router.delete("/:id", (req, res) => {
 			res.status(500).json({ message: "The post could not be removed." });
 		});
 });
+
+// Editing a post (PUT request)
+router.put("/:id", (req, res) => {
+	postId = req.params.id;
+	const updated_at = new Date()
+		.toISOString()
+		.slice(0, 19)
+		.replace("T", " ");
+
+	const updatedPost = { ...req.body, updated_at };
+
+	if (!updatedPost.title || !updatedPost.contents) {
+		res.status(400).json({
+			message: `Please provide ${
+				!updatedPost.title ? "tittle" : "contents"
+			} for the post.`
+		});
+	} else {
+		Posts.update(postId, updatedPost)
+			.then(updated => {
+				if (updated) {
+					res.status(200).json({ ...updatedPost, id: postId });
+				} else {
+					res.status(404).json({
+						message: "The post with the specified ID does not exist."
+					});
+				}
+			})
+			.catch(error => {
+				console.log(error);
+				res
+					.status(500)
+					.json({ message: "The post information could not be modified." });
+			});
+	}
+});
