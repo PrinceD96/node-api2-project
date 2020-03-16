@@ -115,3 +115,23 @@ router.get("/:id/comments", (req, res) => {
 });
 
 module.exports = router;
+
+// Deleting an specified post (DELETE request)
+router.delete("/:id", (req, res) => {
+	postId = req.params.id;
+
+	Posts.remove(postId)
+		.then(post => {
+			if (!post) {
+				res
+					.status(404)
+					.json({ message: "The post with the specified ID does not exist." });
+			} else {
+				res.status(200).end();
+			}
+		})
+		.catch(error => {
+			console.log(error);
+			res.status(500).json({ message: "The post could not be removed." });
+		});
+});
