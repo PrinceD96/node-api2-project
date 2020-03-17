@@ -11,7 +11,7 @@ router.post("/", (req, res) => {
 		res.status(400).json({
 			message: `Please provide ${
 				!post.title ? "tittle" : "contents"
-				} for the post.`
+			} for the post.`
 		});
 	} else {
 		Posts.insert(post)
@@ -40,19 +40,19 @@ router.post("/:id/comments", (req, res) => {
 		} else {
 			comment.text
 				? Posts.insertComment(comment)
-					.then(id => {
-						res.status(201).json({ ...comment, ...id });
-					})
-					.catch(error => {
-						console.log(error);
-						res.status(500).json({
-							message:
-								"There was an error while saving the comment to the database"
-						});
-					})
+						.then(id => {
+							res.status(201).json({ ...comment, ...id });
+						})
+						.catch(error => {
+							console.log(error);
+							res.status(500).json({
+								message:
+									"There was an error while saving the comment to the database"
+							});
+						})
 				: res.status(400).json({
-					message: "Please provide text for the comment."
-				});
+						message: "Please provide text for the comment."
+				  });
 		}
 	});
 });
@@ -150,7 +150,7 @@ router.put("/:id", (req, res) => {
 		res.status(400).json({
 			message: `Please provide ${
 				!updatedPost.title ? "tittle" : "contents"
-				} for the post.`
+			} for the post.`
 		});
 	} else {
 		Posts.update(postId, updatedPost)
