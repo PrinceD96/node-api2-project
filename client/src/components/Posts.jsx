@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Typography, Card } from "antd";
+import { Card } from "antd";
+import { Carousel } from "antd";
 
 const Posts = () => {
 	const [posts, setPosts] = useState([]);
-	const { Text } = Typography;
 	const [card, setCard] = useState({ key: "tab1" });
 
 	useEffect(() => {
@@ -15,6 +15,10 @@ const Posts = () => {
 			})
 			.catch(error => console.log(error));
 	}, []);
+
+	function onChange(a, b, c) {
+		console.log(a, b, c);
+	}
 
 	const tabList = [
 		{
@@ -27,55 +31,68 @@ const Posts = () => {
 		}
 	];
 
-	// const contentList = {
-	// 	tab1: <p>Contents</p>,
-	// 	tab2: <p>Comments</p>
-	// };
-
 	const onTabChange = (key, type) => {
 		console.log(key, type);
 		setCard({ [type]: key });
 	};
 
-	return (
-		<>
-			{posts.map((post, index) => {
-				const contentList = {
-					tab1: <p>{post.contents}</p>,
-					tab2: <p>Comments</p>
-				};
+	const slice = posts.map((post, index) => {
+		const contentList = {
+			tab1: <p>{post.contents}</p>,
+			tab2: <p>Comments</p>
+		};
 
-				return (
-					<>
-						<div key={index} className='card__container'>
-							<Card
-								style={{ width: "100%" }}
-								title={post.title}
-								extra={<a href='#'>More</a>}
-								tabList={tabList}
-								activeTabKey={card.key}
-								onTabChange={key => {
-									onTabChange(key, "key");
-								}}
-							>
-								{contentList[card.key]}
-							</Card>
-						</div>
-					</>
-				);
-			})}
-		</>
+		return (
+			<Card
+				key={index}
+				style={{ width: "100%" }}
+				title={post.title}
+				tabList={tabList}
+				activeTabKey={card.key}
+				onTabChange={key => {
+					onTabChange(key, "key");
+				}}
+			>
+				{contentList[card.key]}
+			</Card>
+		);
+	});
+
+	// console.log("slice", slice);
+
+	return (
+		<div className='carousel__container'>
+			<Carousel afterChange={onChange} className='ant-carousel'>
+				<div>
+					<h3>{slice[0]}</h3>
+				</div>
+				<div>
+					<h3>{slice[1]}</h3>
+				</div>
+				<div>
+					<h3>{slice[2]}</h3>
+				</div>
+				<div>
+					<h3>{slice[3]}</h3>
+				</div>
+				<div>
+					<h3>{slice[4]}</h3>
+				</div>
+				<div>
+					<h3>{slice[5]}</h3>
+				</div>
+				<div>
+					<h3>{slice[6]}</h3>
+				</div>
+				<div>
+					<h3>{slice[7]}</h3>
+				</div>
+				<div>
+					<h3>{slice[8]}</h3>
+				</div>
+			</Carousel>
+		</div>
 	);
 };
 
 export default Posts;
-
-{
-	/* {posts.map((post, index) => (
-				<div key={index}>
-					<Text strong>{post.title}</Text>
-					<br />
-					<Text type='secondary'>{post.contents}</Text>
-				</div>
-			))} */
-}

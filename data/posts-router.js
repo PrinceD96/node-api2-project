@@ -10,7 +10,7 @@ router.post("/", (req, res) => {
 	if (!post.title || !post.contents) {
 		res.status(400).json({
 			message: `Please provide ${
-				!post.title ? "tittle" : "contents"
+				!post.title ? "title" : "contents"
 			} for the post.`
 		});
 	} else {
@@ -149,7 +149,7 @@ router.put("/:id", (req, res) => {
 	if (!updatedPost.title || !updatedPost.contents) {
 		res.status(400).json({
 			message: `Please provide ${
-				!updatedPost.title ? "tittle" : "contents"
+				!updatedPost.title ? "title" : "contents"
 			} for the post.`
 		});
 	} else {
