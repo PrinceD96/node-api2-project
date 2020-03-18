@@ -1,0 +1,30 @@
+.App {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.carousel__container {
+	/* border: 2px solid royalblue; */
+
+	margin: 0 auto;
+	width: 100%;
+	min-width: 300px;
+	max-width: 800px;
+}
+
+.ant-carousel {
+	height: 100%;
+}
+
+.ant-carousel .slick-slide {
+	text-align: center;
+	height: 160px;
+	line-height: 160px;
+	/* background: #adb5c5; */
+	overflow: hidden;
+}
+
+.ant-carousel .slick-dots li button {
+	background: blue;
+	color: blue;
+}
